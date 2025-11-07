@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: spring-boot-mediaserver
+
+  media:
+    directory: ${DOCKER_MEDIA_DIR:${HOST_MEDIA_DIR:springboot_is_kinda_dumb_with_env_placeholders}}
