@@ -1,0 +1,25 @@
+FROM debian:bookworm-slim
+
+# Instala dependências básicas
+RUN apt-get update && apt-get install -y \
+    curl \
+    iproute2 \
+    iptables \
+    ca-certificates \
+    gnupg \
+    lsb-release \
+    sudo \
+    iputils-ping \
+ && rm -rf /var/lib/apt/lists/*
+
+# Instala Tailscale via script oficial
+RUN curl -fsSL https://tailscale.com/install.sh | sh
+
+# Copia entrypoint
+COPY tailscale-entrypoint.sh /tailscale-entrypoint.sh
+RUN chmod +x /tailscale-entrypoint.sh
+
+# Cria pasta de estado
+RUN mkdir -p /var/lib/tailscale
+
+ENTRYPOINT ["/tailscale-entrypoint.sh"]

@@ -28,6 +28,25 @@ services:
       - internal
     restart: on-failure
 
+  tailscale:
+    build:
+      context: .
+      dockerfile: Dockerfile-tailscale
+    container_name: tailscale
+    network_mode: "host"
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    environment:
+      - TAILSCALE_AUTHKEY=${TAILSCALE_AUTHKEY}
+    volumes:
+      - ./tailscale-data:/var/lib/tailscale
+    depends_on:
+      - app
+    restart: always
+
 networks:
   internal:
     driver: bridge
