@@ -3,7 +3,6 @@ spring:
     name: spring-boot-mediaserver
   thymeleaf:
     cache: false
-    prefix: classpath:/templates/
 
 server:
   port: 8081
