@@ -1,37 +1,51 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en-us">
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
 <head>
 	<meta charset="UTF-8">
-	<title>📂 Media Server</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title> Media Server</title>
 	<link rel="stylesheet" th:href="@{/css/styles.css}">
+	<link rel="icon" th:href="@{/favicon.png}" type="image/png">
 </head>
 <body>
-<h1>📂 Media Server</h1>
+<header>
+	<div class="header-container">
+		<h1>📂 Media Server</h1>
+		<button id="theme-toggle" aria-label="Alternar tema">🌙</button>
+	</div>
+</header>
 
-<p><strong>Current Directory:</strong> /<span th:text="${dir}"></span></p>
+<main class="container">
+	<p><strong>Current Directory:</strong> /<span th:text="${dir}"></span></p>
+	
+	<nav class="breadcrumb">
+		<a th:href="@{/app/v1/media/files}">Home</a>
+		<span th:each="crumbName, iterStat : ${breadcrumbNames}">
+            /
+            <a th:href="@{/app/v1/media/files(path=${breadcrumbs[iterStat.index]})}"
+			   th:text="${crumbName}"></a>
+        </span>
+	</nav>
+	
+	<hr>
+	
+	<ul class="file-list">
+		<li th:each="item : ${items}">
+			<span th:if="${item.directory}" class="icon">📁</span>
+			<span th:if="${!item.directory}" class="icon">🎬</span>
+			
+			<a th:href="${item.directory} ?
+                         @{/app/v1/media/files(path=${item.path})} :
+                         @{/app/v1/media/{path}(path=${item.path})}"
+			   th:text="${item.name}"></a>
+		</li>
+	</ul>
+</main>
 
-<div>
-	<a th:href="@{/app/v1/media/files}">Home</a>
-	<span th:each="crumbName, iterStat : ${breadcrumbNames}">
-        /
-        <a th:href="@{/app/v1/media/files(path=${breadcrumbs[iterStat.index]})}"
-		   th:text="${crumbName}"></a>
-    </span>
-</div>
+<footer>
+	<p>© 2025 Media Server</p>
+</footer>
 
-<hr>
-
-<ul>
-	<li th:each="item : ${items}">
-		<span th:if="${item.directory}">📁</span>
-		<span th:if="${!item.directory}">🎬</span>
-		
-		<a th:href="${item.directory} ?
-                     @{/app/v1/media/files(path=${item.path})} :
-                     @{/app/v1/media/{path}(path=${item.path})}"
-		   th:text="${item.name}"></a>
-	</li>
-</ul>
-
+<script th:src="@{/js/theme.js}"></script>
 </body>
 </html>

@@ -1,24 +1,178 @@
+/* --- Reset --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* --- Temas --- */
+
+/* Tema Claro (padrão) */
+:root {
+  --bg-color: #f7f7f7;
+  --text-color: #222;
+  --container-bg: #ffffff;
+  --link-color: #0078d4;
+  --border-color: #e0e0e0;
+  --footer-color: #777;
+  --icon-filter: none;
+}
+
+/* Tema Escuro */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --container-bg: #1e1e1e;
+    --link-color: #4ea1ff;
+    --border-color: #333;
+    --footer-color: #888;
+    --icon-filter: brightness(0.9);
+  }
+}
+
+/* Tema manual forçado */
+[data-theme="dark"] {
+  --bg-color: #121212;
+  --text-color: #e0e0e0;
+  --container-bg: #1e1e1e;
+  --link-color: #4ea1ff;
+  --border-color: #333;
+  --footer-color: #888;
+  --icon-filter: brightness(0.9);
+}
+
+[data-theme="light"] {
+  --bg-color: #f7f7f7;
+  --text-color: #222;
+  --container-bg: #ffffff;
+  --link-color: #0078d4;
+  --border-color: #e0e0e0;
+  --footer-color: #777;
+  --icon-filter: none;
+}
+
+/* --- Corpo --- */
 body {
-  font-family: Arial, sans-serif;
-  background: #121212;
-  color: #eee;
-  padding: 20px;
+  font-family: system-ui, sans-serif;
+  background: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  padding: 1rem;
+  transition: background 0.3s, color 0.3s;
 }
 
-a {
-  color: #4fc3f7;
+/* --- Cabeçalho --- */
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 900px;
+  margin: 0 auto 1.5rem;
+}
+
+#theme-toggle {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+#theme-toggle:hover {
+  transform: scale(1.2);
+}
+
+/* --- Container --- */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: var(--container-bg);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  transition: background 0.3s;
+}
+
+/* --- Breadcrumb --- */
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0.5rem 0 1rem;
+  font-size: 0.95rem;
+}
+
+.breadcrumb a {
+  color: var(--link-color);
   text-decoration: none;
+  margin: 0 0.25rem;
 }
 
-a:hover {
+.breadcrumb a:hover {
   text-decoration: underline;
 }
 
-ul {
+/* --- Lista de arquivos --- */
+.file-list {
   list-style: none;
-  padding-left: 15px;
 }
 
-li {
-  margin-bottom: 6px;
+.file-list li {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.file-list li a {
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: 500;
+  margin-left: 0.5rem;
+  word-break: break-word;
+}
+
+.file-list li a:hover {
+  color: var(--link-color);
+}
+
+/* --- Ícones --- */
+.icon {
+  font-size: 1.2rem;
+  filter: var(--icon-filter);
+}
+
+/* --- Rodapé --- */
+footer {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: var(--footer-color);
+}
+
+/* --- Responsividade --- */
+@media (max-width: 600px) {
+  .container {
+    padding: 1rem;
+  }
+
+  header h1 {
+    font-size: 1.4rem;
+  }
+
+  .file-list li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .file-list li a {
+    margin-left: 0;
+    margin-top: 0.25rem;
+  }
+
+  .breadcrumb {
+    font-size: 0.85rem;
+  }
 }
