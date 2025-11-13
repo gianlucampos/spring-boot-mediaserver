@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en-us">
+<head>
+	<meta charset="UTF-8">
+	<title>📂 Media Server</title>
+	<link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<h1>📂 Media Server</h1>
+
+<p><strong>Current Directory:</strong> /<span th:text="${dir}"></span></p>
+
+<div>
+	<a th:href="@{/app/v1/media/files}">Home</a>
+	<span th:each="crumbName, iterStat : ${breadcrumbNames}">
+        /
+        <a th:href="@{/app/v1/media/files(path=${breadcrumbs[iterStat.index]})}"
+		   th:text="${crumbName}"></a>
+    </span>
+</div>
+
+<hr>
+
+<ul>
+	<li th:each="item : ${items}">
+		<span th:if="${item.directory}">📁</span>
+		<span th:if="${!item.directory}">🎬</span>
+		
+		<a th:href="${item.directory} ?
+                     @{/app/v1/media/files(path=${item.path})} :
+                     @{/app/v1/media/{path}(path=${item.path})}"
+		   th:text="${item.name}"></a>
+	</li>
+</ul>
+
+</body>
+</html>
