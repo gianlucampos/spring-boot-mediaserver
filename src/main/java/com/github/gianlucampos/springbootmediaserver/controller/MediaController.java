@@ -21,7 +21,7 @@ public class MediaController {
 
     private final MediaService mediaService;
 
-    @GetMapping("/{filename}")
+    @GetMapping("/{*filename}")
     public ResponseEntity<ResourceRegion> getMedia(@PathVariable String filename, @RequestHeader HttpHeaders headers) {
         return mediaService.getMedia(filename, headers)
             .map(resource -> ResponseEntity.status(HttpStatus.PARTIAL_CONTENT)

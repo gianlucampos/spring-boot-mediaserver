@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class MediaService {
 
-    @Value("${spring.media.directory}")
+    @Value("${app.media.directory}")
     private String mediaDir;
 
     private static final long CHUNK_SIZE = (long) 1024 * 1024;

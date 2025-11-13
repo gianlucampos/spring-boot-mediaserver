@@ -12,6 +12,7 @@ services:
       - internal
     volumes:
       - ${HOST_MEDIA_DIR}:/app/media/
+    restart: always
 
   ngrok:
     image: ngrok/ngrok:latest

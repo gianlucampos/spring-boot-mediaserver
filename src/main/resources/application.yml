@@ -1,6 +1,14 @@
 spring:
   application:
     name: spring-boot-mediaserver
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
 
+server:
+  port: 8081
+  address: 0.0.0.0
+
+app:
   media:
     directory: ${DOCKER_MEDIA_DIR:${HOST_MEDIA_DIR:springboot_is_kinda_dumb_with_env_placeholders}}
